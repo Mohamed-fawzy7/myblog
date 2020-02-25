@@ -1,0 +1,38 @@
+mat-spinner {
+    margin: 100px auto;
+}
+.no-posts{
+    text-align: center;
+    font-size: 30px;
+    color: #333;
+}
+.imageContainer img{
+    max-width: 100%;
+}
+.createdBy{
+    text-align: right;
+    height: 40px;
+}
+.postTitle{
+    width: 80%;
+    font-size: 20px;
+}
+.comment{
+    color: red;
+    border: 2px solid red;
+}
+
+.comment-form > div{
+    display: inline-block;
+}
+.comment-form {
+    margin: 25px 10px 0;
+    width: 100%;
+}
+  
+.comment-form-field {
+    width: 95%;
+}
+.action-row{
+    text-align: right;
+}

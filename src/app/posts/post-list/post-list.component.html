@@ -1,0 +1,49 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion *ngIf="posts.length > 0 && !isLoading" multi>
+    <mat-expansion-panel style="margin-bottom: 10px" *ngFor="let post of posts">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <div class="postTitle"> {{post.title}}</div>
+                <div class="createdBy">
+                    <p>{{post.creatorEmail}}</p>
+                </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+            {{post.content}}
+        </p>
+        <div class="imageContainer" *ngIf="post.imagePath !== null">
+            <img [src]="'http://localhost:3000/images/' + post.imagePath">
+        </div>
+
+        <hr style="margin: 0 -23px;">
+        <div class="action-row" *ngIf="isUserAuthed && post.creator === authUserId">
+            <a mat-button color="primary" [routerLink]="'edit/'+post._id">Edit</a>
+            <button mat-button color="warn" (click)="deletePost(post._id, paginator)">Delete</button>
+        </div>
+
+        <hr style="margin: 0 -23px;">
+        <form class="comment-form" #commentForm="ngForm" (submit)="addComment(commentContent.value, post._id)">
+            <div class="commentInput" style="width:79%">
+                <mat-form-field class="comment-form-field">
+                    <mat-label>Leave a comment</mat-label>
+                    <input #commentContent name="commentContent" matInput ngModel type="text">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary">Add comment</button>
+            </div>
+        </form>
+        <div>
+            <div *ngFor="let comment of post.comments">
+                <app-comment [comment]="comment" ></app-comment>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<mat-paginator *ngIf="posts.length > 0" [length]="totalPostsCount" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+</mat-paginator>
+
+<p *ngIf="posts.length <= 0 && !isLoading" class="body-1 no-posts">No posts were added.</p>

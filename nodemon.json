@@ -1,0 +1,7 @@
+{
+    "env": {
+      "MONGO_ATLAS_PW": "h4K4i09yiwXIpnJy",
+      "JWT_KEY": "my-hashing-password"
+    }
+  }
+  

@@ -1,0 +1,14 @@
+mat-form-field {
+    width: 100%;
+}
+h2{
+    text-align: center;
+}
+#loginCont{
+    text-align: right;
+}
+p.error{
+    text-align: center;
+    color: rgb(224, 36, 94);
+    margin: 10px auto;
+}
