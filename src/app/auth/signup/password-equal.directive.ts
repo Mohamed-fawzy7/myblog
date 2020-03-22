@@ -22,9 +22,9 @@ import { NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
 export class PasswordEqualDirective implements Validator {
     constructor() { }
     validate(control: FormControl) {
-        const passwordInput = control.root['controls']['password'];
-        if (passwordInput.value === control.value){
-            return null
+        const passwordInput = control.root.controls.password;
+        if (passwordInput.value === control.value) {
+            return null;
         }
         return {confirmPasswordError: true};
     }

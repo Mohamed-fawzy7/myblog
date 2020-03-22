@@ -12,13 +12,13 @@ export class CommentComponent implements OnInit {
     @Input() comment: any;
     @Input() postId;
     authUserId;
-    deletedComment: boolean = false;
+    deletedComment = false;
     editMode = false;
     editCommentSub: any;
 
 
 
-    constructor(private router: Router, private authService: AuthService,private commentsService: CommentService) { }
+    constructor(private router: Router, private authService: AuthService, private commentsService: CommentService) { }
 
     ngOnInit() {
         this.authUserId = this.authService.getAuthUserId();
@@ -27,23 +27,23 @@ export class CommentComponent implements OnInit {
     }
 
     deleteComment() {
-        this.commentsService.deleteComment(this.comment._id, this.postId).subscribe(()=>{
+        this.commentsService.deleteComment(this.comment._id, this.postId).subscribe(() => {
             this.deletedComment = true;
         });
     }
 
     navigateTo(pathArr) {
-        this.router.navigate(pathArr)
+        this.router.navigate(pathArr);
     }
 
-    changeEditMode(){
+    changeEditMode() {
         this.editMode = !this.editMode;
     }
     editComment(editedComment) {
-        this.editCommentSub  = this.commentsService.editComment(this.comment._id, this.postId, editedComment).subscribe((response)=>{
+        this.editCommentSub  = this.commentsService.editComment(this.comment._id, this.postId, editedComment).subscribe((response) => {
             console.log(response);
             this.comment.commentText = editedComment;
             this.changeEditMode();
-        })
+        });
     }
 }

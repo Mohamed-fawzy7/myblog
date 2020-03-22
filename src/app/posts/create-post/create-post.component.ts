@@ -24,17 +24,17 @@ export class PostCreateComponent implements OnInit {
     constructor(private postsService: PostsService, private route: ActivatedRoute) { }
     ngOnInit() {
         this.route.paramMap.subscribe((paramMap) => {
-            this.editedPostId = paramMap.get("postId");
+            this.editedPostId = paramMap.get('postId');
             if (this.editedPostId) {
-                this.mode = "edit";
+                this.mode = 'edit';
                 this.isLoading = true;
                 this.postsService.getPost(this.editedPostId).subscribe((post) => {
                     this.isLoading = false;
                     this.populateForm(post);
-                    this.imagePreview = this.imagePreview ? this.backendURL + 'images/' + post['imagePath'] : null;
-                })
+                    this.imagePreview = this.imagePreview ? this.backendURL + 'images/' + post.imagePath : null;
+                });
             } else {
-                this.mode = "create";
+                this.mode = 'create';
             }
         });
     }
@@ -62,20 +62,20 @@ export class PostCreateComponent implements OnInit {
         reader.readAsDataURL(file);
         reader.onload = () => {
             this.imagePreview = (reader.result as string);
-        }
+        };
     }
 
     onSavePost() {
-        if (this.form.invalid) return;
+        if (this.form.invalid) { return; }
 
         const post = new FormData();
-        post.append("title", this.form.value.title);
-        post.append("content", this.form.value.content);
-        post.append("imagePath", this.form.value.imagePath);
+        post.append('title', this.form.value.title);
+        post.append('content', this.form.value.content);
+        post.append('imagePath', this.form.value.imagePath);
         // console.log(this.form.value.imagePath)
-        if (this.mode === "create") {
+        if (this.mode === 'create') {
             this.postsService.addPost(post);
-        } else if (this.mode === "edit") {
+        } else if (this.mode === 'edit') {
             this.postsService.editPost(this.editedPostId, post);
         }
     }

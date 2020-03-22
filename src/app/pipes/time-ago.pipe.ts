@@ -12,20 +12,20 @@ export class TimeAgoPipe implements PipeTransform {
         let timeValue = 0;
         let timeMeasuring;
         if (duration < 1) {
-            return "now";
+            return 'now';
         }
         if (duration < 60) {
             timeValue = duration;
-            timeMeasuring = 'second'
+            timeMeasuring = 'second';
         } else if (duration < 3600) {
             timeValue = duration / 60;
-            timeMeasuring = 'minute'
+            timeMeasuring = 'minute';
         } else if (duration < 86400) {
             timeValue = duration / 3600;
-            timeMeasuring = 'hour'
+            timeMeasuring = 'hour';
         } else if (duration < 2592000) {
             timeValue = duration / 86400;
-            timeMeasuring = 'day'
+            timeMeasuring = 'day';
         } else if (duration < 31104000) {
             timeValue = duration / 2592000;
             timeMeasuring = 'month';
@@ -34,8 +34,8 @@ export class TimeAgoPipe implements PipeTransform {
             timeMeasuring = 'year';
         }
         if (Math.floor(timeValue) > 1) {
-            timeMeasuring += 's'
+            timeMeasuring += 's';
         }
-        return Math.floor(timeValue) + " " + timeMeasuring;
+        return Math.floor(timeValue) + ' ' + timeMeasuring;
     }
 }

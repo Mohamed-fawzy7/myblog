@@ -13,16 +13,16 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         const isUserAuth = this.authService.getIsUserAuth();
-        if(isUserAuth){
-            this.router.navigate([""]);
+        if (isUserAuth) {
+            this.router.navigate(['']);
         }
-        this.authService.getLoginFailureListener().subscribe(()=>{
+        this.authService.getLoginFailureListener().subscribe(() => {
             this.wrongEmailOrPassword = true;
-            console.log("haaaaaaaaaa");
+            console.log('haaaaaaaaaa');
         });
     }
     onLogin(form) {
-        if (form.invalid){
+        if (form.invalid) {
             return;
         }
         this.authService.loginUser(form.value.email, form.value.password);

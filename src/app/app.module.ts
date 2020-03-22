@@ -80,12 +80,12 @@ import { CropperComponent } from './cropper/cropper.component';
   ],
   providers: [
       PostsService,
-    {provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor ,multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor , multi: true}
     ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-    constructor(private library:FaIconLibrary){
-        library.addIcons(fasHeart, farHeart, faShareAlt, faFacebookF, faTwitter, faLinkedin, faCamera)
+export class AppModule {
+    constructor(private library: FaIconLibrary) {
+        library.addIcons(fasHeart, farHeart, faShareAlt, faFacebookF, faTwitter, faLinkedin, faCamera);
     }
 }

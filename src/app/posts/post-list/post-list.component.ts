@@ -1,5 +1,5 @@
 import { PostsService } from './../posts.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { PageEvent, MatPaginator } from '@angular/material';
 import { AuthService } from 'src/app/auth/auth-service.service';
 import { Subscription } from 'rxjs';
@@ -8,12 +8,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
+
 @Component({
     selector: 'app-post-list',
     templateUrl: './post-list.component.html',
     styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
     backendURL = environment.backendURL;
     domain = environment.domain;
     posts = [];
@@ -30,29 +32,29 @@ export class PostListComponent implements OnInit {
     confirmedSharedPostId: string;
 
 
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
 
     constructor(private service: PostsService,
-        private authService: AuthService,
-        private modalService: NgbModal) { }
+                private authService: AuthService,
+                private modalService: NgbModal) { }
 
     ngOnInit() {
         console.log('s');
         this.isLoading = true;
         this.authUserId = this.authService.getAuthUserId();
         this.service.getPosts(this.pageSize, this.currentPage);
-        this.service.postsObservable.subscribe((postsData) => {
+        this.service.postsObservable.subscribe((postsData: any) => {
             console.log(postsData);
             this.isLoading = false;
-            this.posts = postsData['posts']
-            this.totalPostsCount = postsData['totalPostsCount']
-        })
+            this.posts = postsData.posts;
+            this.totalPostsCount = postsData.totalPostsCount;
+        });
         this.isUserAuthed = this.authService.getIsUserAuth();
         this.userAuthSub = this.authService.getAuthStatusListener().subscribe((isUserAuthed: boolean) => {
             this.isUserAuthed = isUserAuthed;
             this.authUserId = this.authService.getAuthUserId();
-        })
+        });
     }
 
     onPageChange(e: PageEvent) {

@@ -11,12 +11,12 @@ export class AppComponent implements OnInit {
     constructor(private authService: AuthService) { }
     ngOnInit() {
         this.authService.autoAuth();
-        window.addEventListener("storage", ()=>{
-            console.log("auto auth again");
+        window.addEventListener('storage', () => {
+            console.log('auto auth again');
             const token = localStorage.getItem('token');
             const userId = localStorage.getItem('userId');
             const username = localStorage.getItem('username');
-            const expirationDate = new Date(localStorage.getItem('expirationDate'))
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
             console.log(token, userId, username, expirationDate);
             this.authService.autoAuth();
         });

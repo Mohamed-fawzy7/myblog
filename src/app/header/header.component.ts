@@ -7,32 +7,32 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls : ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
     isUserAuthenticated = false;
     userAuthListenerSub: Subscription;
     username: string;
     isMenuCollapsed = true;
     authUserId;
 
-    constructor(private authService: AuthService){}
+    constructor(private authService: AuthService) {}
 
-    ngOnInit(){
+    ngOnInit() {
         this.isUserAuthenticated = this.authService.getIsUserAuth();
         this.authUserId = this.authService.getAuthUserId();
         this.username = this.authService.getAuthUsername();
-        this.userAuthListenerSub = this.authService.getAuthStatusListener().subscribe((isUserAuthenticated: boolean)=>{
+        this.userAuthListenerSub = this.authService.getAuthStatusListener().subscribe((isUserAuthenticated: boolean) => {
             console.log(this.authUserId);
-            this.isUserAuthenticated = isUserAuthenticated
-            this.username = this.authService.getAuthUsername();  
-            this.authUserId = this.authService.getAuthUserId();     
-        })
+            this.isUserAuthenticated = isUserAuthenticated;
+            this.username = this.authService.getAuthUsername();
+            this.authUserId = this.authService.getAuthUserId();
+        });
     }
 
-    onLogout(){
+    onLogout() {
         this.authService.onLogout();
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.userAuthListenerSub.unsubscribe();
     }
 

@@ -13,18 +13,18 @@ export class SignupComponent implements OnInit {
 
     ngOnInit() {
         const isUserAuth = this.authService.getIsUserAuth();
-        if(isUserAuth){
-            this.router.navigate([""]);
+        if (isUserAuth) {
+            this.router.navigate(['']);
         }
-        this.authService.getSignupFailureListener().subscribe(()=>{
-            console.log("p2");
+        this.authService.getSignupFailureListener().subscribe(() => {
+            console.log('p2');
             this.emailUsed = true;
-        })
+        });
     }
     onSignup(form) {
         if (form.invalid) {
             return;
         }
-        const x =this.authService.createUser(form.value.email, form.value.username, form.value.password);
+        const x = this.authService.createUser(form.value.email, form.value.username, form.value.password);
     }
 }

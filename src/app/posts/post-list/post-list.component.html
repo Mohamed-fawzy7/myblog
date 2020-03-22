@@ -7,17 +7,17 @@
                     <div class="post-head">
                         <div class="poster-image-container">
                             <img width="54" height="54" class="post-image"
-                                [src]="backendURL + 'images/' + post.creator.profileImagePath"
-                                *ngIf="post.creator?.profileImagePath">
-                            <div class="lettersImage" *ngIf="!post.creator?.profileImagePath">
-                                <p>{{post.creator.username | nameFirstLetters}}</p>
+                                [src]="backendURL + 'images/' + post?.creator?.profileImagePath"
+                                *ngIf="post?.creator?.profileImagePath">
+                            <div class="lettersImage" *ngIf="!post?.creator?.profileImagePath">
+                                <p>{{post?.creator.username | nameFirstLetters}}</p>
                             </div>
                         </div>
                         <div class="post-details">
                             <div class="font-weight-bold">
-                                <a [routerLink]="['profile', post.creator._id]">{{post.creator.username}}</a>
+                                <a [routerLink]="['profile', post?.creator._id]">{{post?.creator?.username}}</a>
                             </div>
-                            <div>{{post.date | timeAgo}}</div>
+                            <div>{{post?.date | timeAgo}}</div>
                         </div>
                         <div ngbDropdown class="post-menu-dropdown">
                             <div id="dropdownBasic1" ngbDropdownToggle>
@@ -25,20 +25,20 @@
                             </div>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                 <button ngbDropdownItem class="text-primary"
-                                    (click)="openShareModal(shareModal, post._id)">Share</button>
-                                <a ngbDropdownItem class="text-info" [routerLink]="'edit/'+post._id"
-                                    *ngIf="post.creator._id === authUserId">Edit</a>
+                                    (click)="openShareModal(shareModal, post?._id)">Share</button>
+                                <a ngbDropdownItem class="text-info" [routerLink]="'edit/'+post?._id"
+                                    *ngIf="post?.creator?._id === authUserId">Edit</a>
                                 <button ngbDropdownItem class="text-danger"
-                                    (click)="openDeleteModal(deleteModal, post._id)"
-                                    *ngIf="post.creator._id === authUserId">Delete</button>
+                                    (click)="openDeleteModal(deleteModal, post?._id)"
+                                    *ngIf="post?.creator._id === authUserId">Delete</button>
                             </div>
                         </div>
                     </div>
-                    <div [routerLink]="['post', post._id]" class="post-image-container" *ngIf="post.imagePath">
-                        <img [src]="backendURL + 'images/' + post.imagePath">
+                    <div [routerLink]="['post', post?._id]" class="post-image-container" *ngIf="post?.imagePath">
+                        <img [src]="backendURL + 'images/' + post?.imagePath">
                     </div>
-                    <hr *ngIf="!post.imagePath">
-                    <div class="post-title" [routerLink]="['post',post._id]">{{post.title}}</div>
+                    <hr *ngIf="!post?.imagePath">
+                    <div class="post-title" [routerLink]="['post',post?._id]">{{post?.title}}</div>
                 </div>
             </div>
         </div>

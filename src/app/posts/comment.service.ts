@@ -7,17 +7,17 @@ import { PostsService } from './posts.service';
     providedIn: 'root'
 })
 export class CommentService {
-    private backendURL = environment.backendURL + "api/comments";
+    private backendURL = environment.backendURL + 'api/comments';
 
     constructor(private http: HttpClient, private postsService: PostsService) { }
     addComment(comment, postId) {
-        return this.http.post(this.backendURL, {comment, postId})
+        return this.http.post(this.backendURL, {comment, postId});
     }
-    deleteComment(commentId, postId){
+    deleteComment(commentId, postId) {
         console.log(postId);
-        return this.http.delete(this.backendURL + '/' + commentId + '/' + postId)
+        return this.http.delete(this.backendURL + '/' + commentId + '/' + postId);
     }
     editComment(commentId, postId, editedComment) {
-        return this.http.patch(this.backendURL + '/' + commentId + '/' + postId, {editedComment})
+        return this.http.patch(this.backendURL + '/' + commentId + '/' + postId, {editedComment});
     }
 }

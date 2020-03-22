@@ -36,30 +36,27 @@ export class ProfileComponent implements OnInit {
             this.authUserId = this.authService.getAuthUserId();
             this.usersService.getUserInfo(userId).subscribe((user: any) => {
                 this.user = user;
-            })
+            });
             this.postsService.getUserPosts(userId).subscribe((posts) => {
                 this.userPosts = posts;
-            })
-        })
+            });
+        });
     }
 
     async handleEditFormSubmit(form) {
-        console.log("handle edit form");
+        console.log('handle edit form');
         const newUserData = new FormData();
-        await newUserData.append("username", form.value.username);
-        await newUserData.append("bio", form.value.bio);
-        await newUserData.append("mo", this.blob);
-        for (var x of (newUserData as any).entries()) {
-            console.log(x);
-        }
-        this.usersService.editUserInfo(this.user['_id'], newUserData).subscribe((response) => {
+        await newUserData.append('username', form.value.username);
+        await newUserData.append('bio', form.value.bio);
+        await newUserData.append('mo', this.blob);
+        this.usersService.editUserInfo(this.user._id, newUserData).subscribe((response) => {
             console.log(response);
             this.editProfileModal.close();
             this.ngOnInit();
         });
     }
     getCroppedImage(canvas) {
-        console.log("heeeeeeeeeeeeeeeelllllllo")
+        console.log('heeeeeeeeeeeeeeeelllllllo');
         this.croppedImage = canvas.toDataURL();
         canvas.toBlob((blob) => {
             this.blob = blob;
@@ -67,10 +64,10 @@ export class ProfileComponent implements OnInit {
         this.closeCropImageModal();
     }
     closeCropImageModal() {
-        this.cropImageModal.close()
+        this.cropImageModal.close();
     }
     handleProfilePicInputEvent(event, cropperModal) {
-        console.log("profile pic changed");
+        console.log('profile pic changed');
         const file = (event.target as HTMLInputElement).files[0];
         console.log(file.type);
         console.log(file);
@@ -79,8 +76,8 @@ export class ProfileComponent implements OnInit {
         reader.onload = (e) => {
             this.selectedImage = reader.result;
             this.cropImageModal = this.modalService.open(cropperModal);
-            event.target.value = "";
-        }
+            event.target.value = '';
+        };
     }
 
     openEditProfileModal(modal) {

@@ -19,7 +19,7 @@ export class MiniPostComponent implements OnInit {
         this.authUserId = this.authService.getAuthUserId();
         console.log(this.extendHeight);
     }
-    navigateTo(linkArr){
+    navigateTo(linkArr) {
         this.route.navigate(linkArr);
     }
 }

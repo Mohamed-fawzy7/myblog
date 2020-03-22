@@ -10,12 +10,12 @@ export class CropperComponent implements AfterViewInit {
     private cropper: Cropper;
 
     @Input() selectedImage;
-    @ViewChild("imageToBeCropped", {static: false}) myImage: ElementRef;
+    @ViewChild('imageToBeCropped', {static: false}) myImage: ElementRef;
     @Output() passCroppedImage = new EventEmitter();
     @Output() closeModal = new EventEmitter();
     constructor() { }
 
-    ngAfterViewInit(){
+    ngAfterViewInit() {
         this.cropper = new Cropper(this.myImage.nativeElement, {
             aspectRatio: 1,
             zoomable: false,
@@ -27,13 +27,13 @@ export class CropperComponent implements AfterViewInit {
             //     const croppedImage = canvas.toDataURL("image/jpg");
             //     this.passCroppedImage.emit(croppedImage);
             // }
-        })
+        });
     }
-    saveImage(){
+    saveImage() {
         const canvas = this.cropper.getCroppedCanvas();
         this.passCroppedImage.emit(canvas);
     }
-    emitCloseModal(){
+    emitCloseModal() {
         this.closeModal.emit();
     }
 }
