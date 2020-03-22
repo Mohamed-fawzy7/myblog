@@ -33,13 +33,17 @@ export class PostsService {
             });
         })
 	}
-	getPost(id) {
-		if (this.myposts.length > 0){
-			return this.myposts.find((p)=> p._id === id);
-        }
-        console.log(apiURL + "/" + id);
-		return this.http.get(apiURL + "/" + id);
-	}
+	getPost(postId) {
+		return this.http.get(apiURL + "/" + postId);
+    }
+    
+    getTopThreePosts(userId){
+        return this.http.get(apiURL + '/' + "topthreeposts" + '/' + userId);
+    }
+    getUserPosts(userId){
+        return this.http.get(apiURL + '/' + "userposts" + '/' + userId);
+    }
+
 	addPost(post) {
         console.log("post sent to the backend is");
         console.log(post);
@@ -47,15 +51,28 @@ export class PostsService {
 			this.router.navigate(['/']);
 		})	
 	}
-	deletePost(id, pageSize, currentPage){
-		this.http.delete(apiURL + "/" + id).subscribe((res)=>{
+	deletePost(postId, pageSize, currentPage){
+		this.http.delete(apiURL + "/" + postId).subscribe((res)=>{
+            console.log("post deleted");
             this.getPosts(pageSize, currentPage);
 		});
 	}
-	editPost(id, post){
+	editPost(postId, post){
         console.log(post);
-		this.http.put(apiURL + "/" + id, post).subscribe((res)=>{
+		this.http.put(apiURL + "/" + postId, post).subscribe((res)=>{
 			this.router.navigate(['/']);
 		})
     }
+
+    likePost(postId){
+        this.http.post(apiURL + "/like/" + postId, null).subscribe((response)=>{
+            console.log(response);
+        })
+    }
+    unlikePost(postId){
+        this.http.post(apiURL + "/unlike/" + postId, null).subscribe((response)=>{
+            console.log(response);
+        })
+    }
+
 }

@@ -1,0 +1,23 @@
+<div class="postContainer">
+    <div class="post-head" *ngIf='!hideHead'>
+        <div class="poster-image-container">
+            <img width="54" height="54" class="post-image"
+                [src]="backendURL + 'images/' + post.creator.profileImagePath" *ngIf="post.creator?.profileImagePath">
+            <div class="lettersImage" *ngIf="!post.creator?.profileImagePath">
+                <p>{{post.creator.username | nameFirstLetters}}</p>
+            </div>
+        </div>
+        <div class="post-details">
+            <div class="font-weight-bold">
+                <a (click)="navigateTo(['profile', post.creator._id])">{{post.creator.username}}</a>
+            </div>
+            <div>{{post.date | timeAgo}}</div>
+        </div>
+    </div>
+    <div (click)="navigateTo(['post', post._id])" class="post-image-container" [class.extendHeight]="extendHeight"
+        *ngIf="post.imagePath">
+        <img [src]="backendURL + 'images/' + post.imagePath">
+    </div>
+    <hr *ngIf="!post.imagePath">
+    <div class="post-title" (click)="navigateTo(['post', post._id])">{{post.title}}</div>
+</div>

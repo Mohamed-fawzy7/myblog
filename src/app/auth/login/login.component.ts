@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -7,10 +8,14 @@ import { AuthService } from '../auth-service.service';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    private wrongEmailOrPassword = false;
-    constructor(private authService: AuthService) { }
+    wrongEmailOrPassword = false;
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
+        const isUserAuth = this.authService.getIsUserAuth();
+        if(isUserAuth){
+            this.router.navigate([""]);
+        }
         this.authService.getLoginFailureListener().subscribe(()=>{
             this.wrongEmailOrPassword = true;
             console.log("haaaaaaaaaa");

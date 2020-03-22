@@ -1,3 +1,11 @@
+.mynavbar{
+    background-color: #3f51b5 !important;
+    color: #FFF;
+}
+.my-brand{
+    color: #FFF;
+    font-size: 22px;
+}
 a {
     text-decoration: none;
     color: white;

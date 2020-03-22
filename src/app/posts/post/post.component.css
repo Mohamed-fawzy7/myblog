@@ -1,0 +1,128 @@
+a{
+    color: rgb(0, 123, 255) !important;
+    cursor: pointer;
+}
+a:hover{
+    color: #0056b3 !important;
+}
+
+.post-comp{
+    background-color: #F0F2F4;
+    min-height: calc(100vh - 64px);
+}
+.postContainer{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+.post-head{
+    height: 80px;
+    display: flex;
+    padding: 10px 10px 10px 20px;
+}
+.poster-image-container{
+    width: 60px;
+    margin-right: 10px;
+}
+.poster-image{
+    border-radius: 50%;
+    margin: 3px;
+}
+.post-details{
+    margin-top: 7px;
+}
+.post-menu-dropdown{
+    margin-left: auto;
+    margin-top: auto;
+}
+.post-menu:after{
+    content: '\2807';
+    font-size: 2em;
+    color: #2e2e2e;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.post-image-container{
+    overflow:hidden;
+}
+.post-image-container img{
+    max-width: 100%;
+}
+.lettersImage{
+    background-color: #888;
+    color: #FFF;
+    font-size: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.lettersImage p {
+    margin: 0
+}
+.post-title{
+    height: 70px;
+    overflow: hidden;
+    padding: 10px 10px 10px 25px;
+    font-size: 20px;
+}
+.post-title a{
+    color: #333;
+}
+.post-title a:hover{
+    color: #0056b3
+}
+.post-content{
+    padding: 10px 10px 10px 25px;
+    color: #333;
+}
+.actions-bar{
+    display: flex;
+    padding: 10px 10px 10px 20px;
+}
+.actions-bar div{
+    padding: 10px;
+    cursor: pointer;
+}
+#fav-icon{
+    color: red;
+    font-size: 20px;
+}
+#share-icon{
+    font-size: 20px;
+    color: #333;
+}
+
+.addComment{
+    padding: 15px 15px 15px 25px;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+.comment-form > div{
+    display: inline-block;
+}
+.comment-form {
+    width: 100%;
+}
+  
+.comment-form-field {
+    width: 95%;
+}
+.comments{
+    background-color: #FFF;
+    margin-top: 20px;
+    padding: 10px 10px 20px 25px;
+    border-radius: 5px;
+}
+
+.top-three-posts-container{
+    padding: 15px;
+}

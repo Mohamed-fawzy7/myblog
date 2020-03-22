@@ -12,6 +12,13 @@ import {
   MatProgressSpinnerModule,
   MatPaginatorModule
 } from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faHeart as fasHeart, faShareAlt, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faFacebookF, faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+
+
 import { AppComponent } from './app.component';
 import {PostCreateComponent} from './posts/create-post/create-post.component';
 import {PostListComponent} from './posts/post-list/post-list.component';
@@ -25,7 +32,13 @@ import { PasswordEqualDirective } from './auth/signup/password-equal.directive';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CommentComponent } from './posts/comment/comment.component';
-
+import { PostComponent } from './posts/post/post.component';
+import { ShareComponent } from './posts/share/share.component';
+import { ProfileComponent } from './profile/profile.component';
+import { NameFirstLettersPipe } from './pipes/name-first-letters.pipe';
+import { MiniPostComponent } from './posts/mini-post/mini-post.component';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { CropperComponent } from './cropper/cropper.component';
 
 
 @NgModule({
@@ -38,7 +51,14 @@ import { CommentComponent } from './posts/comment/comment.component';
     SignupComponent,
     PasswordEqualDirective,
     NotFoundComponent,
-    CommentComponent
+    CommentComponent,
+    PostComponent,
+    ShareComponent,
+    ProfileComponent,
+    NameFirstLettersPipe,
+    MiniPostComponent,
+    TimeAgoPipe,
+    CropperComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +74,9 @@ import { CommentComponent } from './posts/comment/comment.component';
     MatPaginatorModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [
       PostsService,
@@ -62,4 +84,8 @@ import { CommentComponent } from './posts/comment/comment.component';
     ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+    constructor(private library:FaIconLibrary){
+        library.addIcons(fasHeart, farHeart, faShareAlt, faFacebookF, faTwitter, faLinkedin, faCamera)
+    }
+}

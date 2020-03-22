@@ -1,0 +1,123 @@
+<app-not-found *ngIf="noPostFound"></app-not-found>
+<div class="post-comp" *ngIf="!noPostFound">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="postContainer">
+                    <div class="post-head">
+                        <div class="poster-image-container">
+                            <img width="54" height="54" class="poster-image" 
+                                [src]="backendURL + 'images/' + post?.creator?.profileImagePath" *ngIf="post?.creator?.profileImagePath">
+                            <div class="lettersImage" *ngIf="post?.creator && !post?.creator?.profileImagePath">
+                                <p>{{post?.creator?.username | nameFirstLetters}}</p>
+                            </div>
+                        </div>
+                        <div class="post-details">
+                            <div class="font-weight-bold">
+                                <a (click)="navigateTo(['profile', post?.creator?._id])">{{post?.creator?.username}}</a>
+                            </div>
+                            <div *ngIf="post?.date">{{post?.date | timeAgo}}</div>
+                        </div>
+                        <div ngbDropdown class="post-menu-dropdown">
+                            <div id="dropdownBasic1" ngbDropdownToggle>
+                                <div class="post-menu"></div>
+                            </div>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem class="text-primary" (click)="open(shareModal)">Share</button>
+                                <button ngbDropdownItem class="text-info" (click)="navigateTo(['edit', post?._id])"
+                                    *ngIf="post?.creator?._id === authUserId">Edit</button>
+                                <button ngbDropdownItem class="text-danger" (click)="open(deleteModal)"
+                                    *ngIf="post?.creator?._id === authUserId">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-image-container" *ngIf="post?.imagePath">
+                        <img [src]="backendURL + 'images/' + post?.imagePath">
+                    </div>
+                    <hr *ngIf="!post?.imagePath">
+                    <div class="post-title">{{post?.title}}</div>
+                    <p class="post-content">{{post?.content}}</p>
+                    <hr *ngIf="!post?.imagePath">
+                    <div class="actions-bar">
+                        <div (click)="toggleLike(authenticateModal)">
+                            <fa-icon id="fav-icon" [icon]="[isPostLiked?'fas':'far', 'heart']"></fa-icon>
+                            &nbsp;<span *ngIf="postLikes > 0">{{postLikes}}</span>
+                        </div>
+                        <div>
+                            <fa-icon id="share-icon" [icon]="['fas', 'share-alt']" (click)="open(shareModal)"></fa-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="addComment" *ngIf="authUserId">
+                    <form class="comment-form" #commentForm="ngForm"
+                        (submit)="addComment(commentContent.value, post?._id, commentForm)">
+                        <div class="commentInput" style="width:79%">
+                            <mat-form-field class="comment-form-field">
+                                <mat-label>Leave a comment</mat-label>
+                                <input #commentContent name="commentContent" matInput ngModel type="text">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="primary">Add comment</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="comments" *ngIf="post?.comments?.length > 0">
+                    <div *ngFor="let comment of post?.comments?.slice().reverse()">
+                        <app-comment [comment]="comment" [postId]="post?._id"></app-comment>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="top-three-posts-container" *ngIf="sidePosts?.length > 0">
+                    <h6>Also from {{post?.creator?.username}}.</h6>
+                    <div *ngFor="let post of sidePosts">
+                        <app-mini-post [post]="post" [hideHead]='true'></app-mini-post>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- login or signup modal, appears when u click like without loging in -->
+<ng-template #authenticateModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-auth">You need to be Logged in to do this action.</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="navigateTo(['login'])"
+            (click)="modal.close()">Login</button>
+        <button type="button" class="btn btn-primary" (click)="navigateTo(['signup'])" (click)="modal.close()">Sign
+            up</button>
+    </div>
+</ng-template>
+
+
+<!-- delete modal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-delete-post">Are you sure you want to delete this post?</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deletePost()" (click)="modal.close()">Delete</button>
+        <button type="button" class="btn btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>
+
+<!-- share modal -->
+<ng-template #shareModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-share-post">Share to:</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-share [sharedLink]="'post' + '/' + post?._id"></app-share>
+</ng-template>

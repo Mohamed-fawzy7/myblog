@@ -1,0 +1,16 @@
+.share-modal-footer{
+    justify-content: center;
+}
+.share-modal-footer fa-icon{
+    font-size: 35px;
+    margin: 15px;
+}
+#facebook-icon{
+    color: #3b5998 !important;
+}
+#twitter-icon{
+    color: #00acee !important;
+}
+#linkedin-icon{
+    color: #0e76a8  !important;
+}

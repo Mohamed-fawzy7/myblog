@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -8,9 +9,13 @@ import { AuthService } from '../auth-service.service';
 })
 export class SignupComponent implements OnInit {
     emailUsed = false;
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
+        const isUserAuth = this.authService.getIsUserAuth();
+        if(isUserAuth){
+            this.router.navigate([""]);
+        }
         this.authService.getSignupFailureListener().subscribe(()=>{
             console.log("p2");
             this.emailUsed = true;
@@ -20,6 +25,6 @@ export class SignupComponent implements OnInit {
         if (form.invalid) {
             return;
         }
-        const x =this.authService.createUser(form.value.email, form.value.password);
+        const x =this.authService.createUser(form.value.email, form.value.username, form.value.password);
     }
 }

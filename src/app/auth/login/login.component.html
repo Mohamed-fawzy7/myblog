@@ -3,7 +3,7 @@
 <mat-card>
     <form (submit)="onLogin(form)" #form="ngForm">
         <mat-form-field>
-            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel">
+            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autofocus="true">
             <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
         </mat-form-field>
         <mat-form-field>

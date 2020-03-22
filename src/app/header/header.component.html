@@ -1,10 +1,27 @@
-<mat-toolbar color="primary">
-  <span><a routerLink="">MyBlog</a></span>
-  <span class="spacer"></span>
-  <ul>
-      <li *ngIf="isUserAuthenticated"><span><a  *ngIf="isUserAuthenticated"mat-button routerLinkActive="activeLink" routerLink="/create">New Post</a></span></li>
-      <li *ngIf="!isUserAuthenticated"><span><a mat-button routerLinkActive="activeLink" routerLink="/login">Login</a></span></li>
-      <li *ngIf="!isUserAuthenticated"><span><a mat-button routerLinkActive="activeLink" routerLink="/signup">Sign up</a></span></li>
-      <button *ngIf="isUserAuthenticated" (click)="onLogout()" mat-button>Logout</button>
-  </ul>
-</mat-toolbar>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 mynavbar fixed-top">
+    <a class="my-brand" [routerLink]="''">MyBlog</a>
+
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+        &#9776;
+    </button>
+
+    <div style="justify-content: flex-end;" [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li *ngIf="!isUserAuthenticated">
+                <a mat-button routerLinkActive="activeLink" routerLink="/login">Login</a>
+            </li>
+            <li *ngIf="!isUserAuthenticated">
+                <a mat-button routerLinkActive="activeLink" routerLink="/signup">Signup</a>
+            </li>
+            <li *ngIf="isUserAuthenticated">
+                <a mat-button routerLinkActive="activeLink" routerLink="/create">NewPost</a>
+            </li>
+            <li *ngIf="isUserAuthenticated">
+                <a mat-button [routerLink]="['profile', authUserId]">{{username}}</a>
+            </li>
+            <li *ngIf="isUserAuthenticated" (click)="onLogout()">
+                <a mat-button>Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

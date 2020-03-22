@@ -3,8 +3,12 @@
 <mat-card>
     <form (submit)="onSignup(form)" #form="ngForm">
         <mat-form-field>
-            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel">
+            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autofocus="true">
             <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input name="username" type="text" placeholder="Name" matInput ngModel required #usernameInput="ngModel">
+            <mat-error>Enter valid email.</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input name="password" type="password" placeholder="Password" minlength="5" required matInput ngModel #passwordInput="ngModel">
@@ -14,7 +18,7 @@
         <mat-form-field>
             <input name="passwordConfirm" type="password" placeholder="Enter password again"
             required appPasswordEqual matInput ngModel #passwordConfirmInput="ngModel">
-            <mat-error>Passwords doesn't match</mat-error>
+            <mat-error>Passwords don't match</mat-error>
         </mat-form-field>
         <div id="signupCont">
             <button mat-raised-button color="accent">Sign up</button>

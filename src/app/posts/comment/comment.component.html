@@ -1,4 +1,28 @@
-<div class="commentContainer">
-    <p class="commentedBy">{{comment.commenterEmail}}</p>
-    <p class="commentP">{{comment.commentText}}</p>
+<div class="commentContainer" [class.deleted]="deletedComment">
+    <div class="commentedBy">
+        <div>
+            <a (click)="navigateTo(['profile', comment.commenter._id])">{{comment.commenter.username}}</a>
+            <p class="commented-time">
+                {{comment.date | timeAgo}}
+            </p>
+        </div>
+        <div ngbDropdown class="post-menu-dropdown" *ngIf="comment?.commenter?._id === authUserId">
+            <div id="dropdownBasic1" ngbDropdownToggle>
+                <div class="post-menu"></div>
+            </div>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem class="text-info" (click)="changeEditMode()">Edit</button>
+                <button ngbDropdownItem class="text-danger" (click)="deleteComment()">Delete</button>
+            </div>
+        </div>
+    </div>
+    <form #commentForm="ngForm" *ngIf="editMode" (submit)="editComment(editedComment.value)">
+        <div class="form-group">
+            <input type="email" #editedComment class="form-control" id="editComment" [value]="comment.commentText">
+        </div>
+        <div class="editButtonContainer">
+            <button type="submit" class="btn btn-primary">Edit Comment</button>
+        </div>
+    </form>
+    <p class="commentP" *ngIf="!editMode">{{comment.commentText}}</p>
 </div>

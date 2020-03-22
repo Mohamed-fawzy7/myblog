@@ -1,49 +1,83 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion *ngIf="posts.length > 0 && !isLoading" multi>
-    <mat-expansion-panel style="margin-bottom: 10px" *ngFor="let post of posts">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <div class="postTitle"> {{post.title}}</div>
-                <div class="createdBy">
-                    <p>{{post.creatorEmail}}</p>
+<div class="posts-list" *ngIf="posts.length > 0 && !isLoading">
+    <div class="container postsContainer">
+        <div class="row">
+            <div class="col-md-6" *ngFor="let post of posts">
+                <div class="postContainer">
+                    <div class="post-head">
+                        <div class="poster-image-container">
+                            <img width="54" height="54" class="post-image"
+                                [src]="backendURL + 'images/' + post.creator.profileImagePath"
+                                *ngIf="post.creator?.profileImagePath">
+                            <div class="lettersImage" *ngIf="!post.creator?.profileImagePath">
+                                <p>{{post.creator.username | nameFirstLetters}}</p>
+                            </div>
+                        </div>
+                        <div class="post-details">
+                            <div class="font-weight-bold">
+                                <a [routerLink]="['profile', post.creator._id]">{{post.creator.username}}</a>
+                            </div>
+                            <div>{{post.date | timeAgo}}</div>
+                        </div>
+                        <div ngbDropdown class="post-menu-dropdown">
+                            <div id="dropdownBasic1" ngbDropdownToggle>
+                                <div class="post-menu"></div>
+                            </div>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem class="text-primary"
+                                    (click)="openShareModal(shareModal, post._id)">Share</button>
+                                <a ngbDropdownItem class="text-info" [routerLink]="'edit/'+post._id"
+                                    *ngIf="post.creator._id === authUserId">Edit</a>
+                                <button ngbDropdownItem class="text-danger"
+                                    (click)="openDeleteModal(deleteModal, post._id)"
+                                    *ngIf="post.creator._id === authUserId">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div [routerLink]="['post', post._id]" class="post-image-container" *ngIf="post.imagePath">
+                        <img [src]="backendURL + 'images/' + post.imagePath">
+                    </div>
+                    <hr *ngIf="!post.imagePath">
+                    <div class="post-title" [routerLink]="['post',post._id]">{{post.title}}</div>
                 </div>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>
-            {{post.content}}
-        </p>
-        <div class="imageContainer" *ngIf="post.imagePath !== null">
-            <img [src]="'http://localhost:3000/images/' + post.imagePath">
-        </div>
-
-        <hr style="margin: 0 -23px;">
-        <div class="action-row" *ngIf="isUserAuthed && post.creator === authUserId">
-            <a mat-button color="primary" [routerLink]="'edit/'+post._id">Edit</a>
-            <button mat-button color="warn" (click)="deletePost(post._id, paginator)">Delete</button>
-        </div>
-
-        <hr style="margin: 0 -23px;">
-        <form class="comment-form" #commentForm="ngForm" (submit)="addComment(commentContent.value, post._id)">
-            <div class="commentInput" style="width:79%">
-                <mat-form-field class="comment-form-field">
-                    <mat-label>Leave a comment</mat-label>
-                    <input #commentContent name="commentContent" matInput ngModel type="text">
-                </mat-form-field>
-            </div>
-            <div>
-                <button mat-raised-button color="primary">Add comment</button>
-            </div>
-        </form>
-        <div>
-            <div *ngFor="let comment of post.comments">
-                <app-comment [comment]="comment" ></app-comment>
             </div>
         </div>
-    </mat-expansion-panel>
-</mat-accordion>
+    </div>
+</div>
 
+<!-- no posts -->
+<p *ngIf="posts.length <= 0 && !isLoading" class="no-posts">No posts were added.</p>
+
+<!-- paginator -->
 <mat-paginator *ngIf="posts.length > 0" [length]="totalPostsCount" [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
 </mat-paginator>
 
-<p *ngIf="posts.length <= 0 && !isLoading" class="body-1 no-posts">No posts were added.</p>
+
+
+<!-- delete modal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-delete-post">Are you sure you want to delete this post?</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deletePost(confirmedDeletedPostId)"
+            (click)="modal.close()">Delete</button>
+        <button type="button" class="btn btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>
+
+
+<!-- share modal -->
+<ng-template #shareModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-share-post">Share to:</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-share [sharedLink]="'post' + '/' + confirmedSharedPostId"></app-share>
+</ng-template>

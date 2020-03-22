@@ -6,9 +6,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth-guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PostComponent } from './posts/post/post.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     {path: '', component: PostListComponent},
+    {path: 'profile/:userId', component: ProfileComponent},
+    {path: 'post/:postId', component: PostComponent},
     {path: 'create', component: PostCreateComponent, canActivate:[AuthGuard]},
     {path: 'edit/:postId', component: PostCreateComponent, canActivate:[AuthGuard]},
     {path: 'login', component: LoginComponent},

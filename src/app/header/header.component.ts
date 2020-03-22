@@ -10,16 +10,21 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy{
     isUserAuthenticated = false;
     userAuthListenerSub: Subscription;
+    username: string;
+    isMenuCollapsed = true;
+    authUserId;
 
     constructor(private authService: AuthService){}
 
     ngOnInit(){
-        console.log(this.authService.getIsUserAuth())
         this.isUserAuthenticated = this.authService.getIsUserAuth();
-        console.log(this.isUserAuthenticated);
+        this.authUserId = this.authService.getAuthUserId();
+        this.username = this.authService.getAuthUsername();
         this.userAuthListenerSub = this.authService.getAuthStatusListener().subscribe((isUserAuthenticated: boolean)=>{
+            console.log(this.authUserId);
             this.isUserAuthenticated = isUserAuthenticated
-            console.log(isUserAuthenticated);
+            this.username = this.authService.getAuthUsername();  
+            this.authUserId = this.authService.getAuthUserId();     
         })
     }
 

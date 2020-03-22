@@ -11,8 +11,13 @@ export class CommentService {
 
     constructor(private http: HttpClient, private postsService: PostsService) { }
     addComment(comment, postId) {
-        this.http.post(this.backendURL, {comment, postId}).subscribe((response)=>{
-            this.postsService.getPosts(undefined, undefined);
-        })
+        return this.http.post(this.backendURL, {comment, postId})
+    }
+    deleteComment(commentId, postId){
+        console.log(postId);
+        return this.http.delete(this.backendURL + '/' + commentId + '/' + postId)
+    }
+    editComment(commentId, postId, editedComment) {
+        return this.http.patch(this.backendURL + '/' + commentId + '/' + postId, {editedComment})
     }
 }
