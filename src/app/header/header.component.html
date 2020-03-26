@@ -16,7 +16,7 @@
             <li *ngIf="isUserAuthenticated">
                 <a mat-button routerLinkActive="activeLink" routerLink="/create">NewPost</a>
             </li>
-            <li *ngIf="isUserAuthenticated">
+            <li *ngIf="authUserId">
                 <a mat-button [routerLink]="['profile', authUserId]">{{username}}</a>
             </li>
             <li *ngIf="isUserAuthenticated" (click)="onLogout()">

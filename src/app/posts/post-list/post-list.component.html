@@ -10,12 +10,12 @@
                                 [src]="backendURL + 'images/' + post?.creator?.profileImagePath"
                                 *ngIf="post?.creator?.profileImagePath">
                             <div class="lettersImage" *ngIf="!post?.creator?.profileImagePath">
-                                <p>{{post?.creator.username | nameFirstLetters}}</p>
+                                <p>{{post?.creator?.username | nameFirstLetters}}</p>
                             </div>
                         </div>
                         <div class="post-details">
                             <div class="font-weight-bold">
-                                <a [routerLink]="['profile', post?.creator._id]">{{post?.creator?.username}}</a>
+                                <a *ngIf="post?.creator?._id" [routerLink]="['profile', post?.creator?._id]">{{post?.creator?.username}}</a>
                             </div>
                             <div>{{post?.date | timeAgo}}</div>
                         </div>
@@ -30,7 +30,7 @@
                                     *ngIf="post?.creator?._id === authUserId">Edit</a>
                                 <button ngbDropdownItem class="text-danger"
                                     (click)="openDeleteModal(deleteModal, post?._id)"
-                                    *ngIf="post?.creator._id === authUserId">Delete</button>
+                                    *ngIf="post?.creator?._id === authUserId">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <img [src]="backendURL + 'images/' + post?.imagePath">
                     </div>
                     <hr *ngIf="!post?.imagePath">
-                    <div class="post-title" [routerLink]="['post',post?._id]">{{post?.title}}</div>
+                    <div class="post-title" [routerLink]="['post', post?._id]">{{post?.title}}</div>
                 </div>
             </div>
         </div>

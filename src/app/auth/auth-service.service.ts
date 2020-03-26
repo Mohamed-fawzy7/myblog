@@ -50,7 +50,7 @@ export class AuthService {
     }
 
     createUser(email, username, password) {
-        this.http.post(apiURL + 'signup', {email, password, username}).subscribe((response) => {
+        this.http.post(apiURL + 'signup', {email, password, username}).subscribe((response: any) => {
             if (response.usedEmail === true) {
                 return this.signupFailureListener.next(true);
             }
@@ -61,7 +61,7 @@ export class AuthService {
 
     loginUser(email, password) {
         console.log('log in');
-        this.http.post(apiURL + 'login', {email, password}).subscribe((response) => {
+        this.http.post(apiURL + 'login', {email, password}).subscribe((response: any) => {
                 if (response.token) {
                     console.log(response);
                     this.isUserAuth = true;

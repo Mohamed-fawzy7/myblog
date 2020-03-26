@@ -7,7 +7,6 @@ export const environment = {
 //   backendURL: 'https://fawzyblog.herokuapp.com/',
   backendURL: 'http://localhost:3000/',
 
-  domain: 'http://localhost:4200/'
 };
 
 /*

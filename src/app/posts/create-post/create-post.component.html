@@ -22,7 +22,7 @@
     <div class="image-preview" *ngIf="imagePreview && imagePreview != null">
         <img class="imagePreview" [src]="imagePreview">
     </div>
-    <span *ngIf="this.form.get('imagePath').invalid" class="image-error">Can't upload this image, make sure it's less than 5MB and saved with jpg/png extensions.</span>
+    <span *ngIf="this.form.get('imagePath').invalid" class="image-error">Can't upload this image, make sure it's saved with jpg/png extensions.</span>
     <div class="imagePicker">
         <button mat-raised-button type="button" color="primary" (click)="imagePicker.click()">{{imagePreview ? 'Change' : 'Add'}} Image</button>
         <button mat-raised-button type="button" color="warn" *ngIf="imagePreview" (click)="deleteImage()">Delete image</button>

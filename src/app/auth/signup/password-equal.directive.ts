@@ -1,15 +1,3 @@
-// import { Validator, FormControl, AbstractControl } from '@angular/forms';
-
-
-// export class PasswordEqualDirective implements Validator{
-//     validate(control: AbstractControl){
-//         // if (control.value === control.root)
-//         // console.log(control.root)
-//         return null;
-//     }
-// }
-
-
 import { Directive } from '@angular/core';
 import { NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
 
@@ -21,7 +9,7 @@ import { NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
 })
 export class PasswordEqualDirective implements Validator {
     constructor() { }
-    validate(control: FormControl) {
+    validate(control: any) {
         const passwordInput = control.root.controls.password;
         if (passwordInput.value === control.value) {
             return null;

@@ -28,10 +28,12 @@ export class PostCreateComponent implements OnInit {
             if (this.editedPostId) {
                 this.mode = 'edit';
                 this.isLoading = true;
-                this.postsService.getPost(this.editedPostId).subscribe((post) => {
+                this.postsService.getPost(this.editedPostId).subscribe((post: any) => {
+                    console.log(post);
                     this.isLoading = false;
                     this.populateForm(post);
-                    this.imagePreview = this.imagePreview ? this.backendURL + 'images/' + post.imagePath : null;
+                    this.imagePreview = post.imagePath ? this.backendURL + 'images/' + post.imagePath : null;
+                    console.log(this.imagePreview);
                 });
             } else {
                 this.mode = 'create';

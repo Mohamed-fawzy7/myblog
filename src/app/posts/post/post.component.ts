@@ -16,7 +16,6 @@ import { environment } from './../../../environments/environment';
 })
 export class PostComponent implements OnInit {
     backendURL = environment.backendURL;
-    domain = environment.domain;
     post: any;
     authUserId;
     isPostLiked = false;

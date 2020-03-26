@@ -18,15 +18,8 @@ export class CropperComponent implements AfterViewInit {
     ngAfterViewInit() {
         this.cropper = new Cropper(this.myImage.nativeElement, {
             aspectRatio: 1,
-            zoomable: false,
-            viewMode: 2,
-            // autoCrop: false,
-            // crop: () =>{
-            //     console.log('cropped');
-            //     const canvas = this.cropper.getCroppedCanvas();
-            //     const croppedImage = canvas.toDataURL("image/jpg");
-            //     this.passCroppedImage.emit(croppedImage);
-            // }
+            zoomable: true,
+            viewMode: 2
         });
     }
     saveImage() {

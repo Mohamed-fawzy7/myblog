@@ -6,10 +6,6 @@ import { Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
-
-
-
 @Component({
     selector: 'app-post-list',
     templateUrl: './post-list.component.html',
@@ -17,7 +13,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PostListComponent implements OnInit, OnDestroy {
     backendURL = environment.backendURL;
-    domain = environment.domain;
     posts = [];
     isLoading = false;
     totalPostsCount: number;
@@ -27,10 +22,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     userAuthSub: Subscription;
     isUserAuthed = false;
     authUserId: string;
-    closeResult: string;
     confirmedDeletedPostId: string;
     confirmedSharedPostId: string;
-
+    postsObservableSub;
 
     @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -44,7 +38,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.authUserId = this.authService.getAuthUserId();
         this.service.getPosts(this.pageSize, this.currentPage);
-        this.service.postsObservable.subscribe((postsData: any) => {
+        this.postsObservableSub = this.service.postsObservable.subscribe((postsData: any) => {
             console.log(postsData);
             this.isLoading = false;
             this.posts = postsData.posts;
@@ -84,6 +78,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.userAuthSub.unsubscribe();
+        this.postsObservableSub.unsubscribe();
     }
 }
 
