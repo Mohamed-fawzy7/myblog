@@ -3,15 +3,15 @@
 <mat-card>
     <form (submit)="onSignup(form)" #form="ngForm">
         <mat-form-field>
-            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autofocus="true">
-            <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input name="username" type="text" placeholder="Name" matInput ngModel required #usernameInput="ngModel">
+            <input name="username" type="text" placeholder="Name" matInput ngModel required #usernameInput="ngModel" autocomplete="off">
             <mat-error>Enter valid email.</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input name="password" type="password" placeholder="Password" minlength="5" required matInput ngModel #passwordInput="ngModel">
+            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autocomplete="off">
+            <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input name="password" type="password" placeholder="Password" minlength="5" required matInput ngModel #passwordInput="ngModel" autocomplete="off">
             <mat-error *ngIf="passwordInput.errors?.required">Password is required</mat-error>
             <mat-error *ngIf="passwordInput.errors?.minlength">Minimum length is {{passwordInput.errors.minlength.requiredLength}}</mat-error>
         </mat-form-field>
