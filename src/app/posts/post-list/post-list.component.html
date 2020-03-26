@@ -25,7 +25,7 @@
                             </div>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                 <button ngbDropdownItem class="text-primary"
-                                    (click)="openShareModal(shareModal, post?._id)">Sharee</button>
+                                    (click)="openShareModal(shareModal, post?._id)">Share</button>
                                 <a ngbDropdownItem class="text-info" [routerLink]="'edit/'+post?._id"
                                     *ngIf="post?.creator?._id === authUserId">Edit</a>
                                 <button ngbDropdownItem class="text-danger"
