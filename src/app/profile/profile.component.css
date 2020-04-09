@@ -72,6 +72,10 @@ div.lettersImage p{
     font-size: 22px;
     font-weight: 500;
     padding-top: 10px;
+    word-break: break-word;
+}
+.profile-bio{
+    word-break: break-word;
 }
 
 /* modal */

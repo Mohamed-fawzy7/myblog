@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/auth/auth-service.service';
     styleUrls: ['./mini-post.component.css']
 })
 export class MiniPostComponent implements OnInit {
-    backendURL = environment.backendURL;
     @Input() hideHead = false;
     @Input() post;
     @Input() extendHeight = false;

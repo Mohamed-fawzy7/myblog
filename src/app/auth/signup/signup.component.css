@@ -3,12 +3,13 @@ mat-form-field {
 }
 h2{
     text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 #signupCont{
     text-align: right;
 }
-p.error{
-    text-align: center;
-    color: rgb(224, 36, 94);
+.error{
     margin: 10px auto;
+    max-width: 80%;
 }

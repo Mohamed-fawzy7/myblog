@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
     constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
+        console.log("login component");
         const isUserAuth = this.authService.getIsUserAuth();
         if (isUserAuth) {
             this.router.navigate(['']);
@@ -20,6 +21,9 @@ export class LoginComponent implements OnInit {
             this.wrongEmailOrPassword = true;
             console.log('haaaaaaaaaa');
         });
+    }
+    navigateTo(path) {
+        this.router.navigate(path);
     }
     onLogin(form) {
         if (form.invalid) {

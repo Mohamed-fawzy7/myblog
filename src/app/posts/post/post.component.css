@@ -9,6 +9,7 @@ a:hover{
 .post-comp{
     background-color: #F0F2F4;
     min-height: calc(100vh - 64px);
+    overflow-x: hidden; /*to remove the white space that drop down menu creates.*/
 }
 .postContainer{
     margin-top: 15px;

@@ -7,7 +7,7 @@
                     <div class="post-head">
                         <div class="poster-image-container">
                             <img width="54" height="54" class="poster-image" 
-                                [src]="backendURL + 'images/' + post?.creator?.profileImagePath" *ngIf="post?.creator?.profileImagePath">
+                                [src]="post?.creator?.profileImagePath" *ngIf="post?.creator?.profileImagePath">
                             <div class="lettersImage" *ngIf="post?.creator && !post?.creator?.profileImagePath">
                                 <p>{{post?.creator?.username | nameFirstLetters}}</p>
                             </div>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="post-image-container" *ngIf="post?.imagePath">
-                        <img [src]="backendURL + 'images/' + post?.imagePath">
+                        <img [src]="post?.imagePath">
                     </div>
                     <hr *ngIf="!post?.imagePath">
                     <div class="post-title">{{post?.title}}</div>

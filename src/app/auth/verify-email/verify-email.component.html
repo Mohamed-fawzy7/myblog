@@ -1,0 +1,11 @@
+<div class="container text-center" *ngIf="!notFound">
+    <div>
+        <div class="mail-icon-container">
+            <fa-icon [icon]="['fas', 'envelope-open-text']"></fa-icon>
+        </div>
+        <h2>Please verify your email address</h2>
+        <p>An email containing verification instructions was sent to <strong>{{authUserEmail}}</strong></p>
+        <button class="btn btn-primary" (click)="resendEmailConfirmation()">Resend email verification</button>
+    </div>
+</div>
+<app-not-found *ngIf="notFound"></app-not-found>

@@ -6,7 +6,7 @@
                 {{comment.date | timeAgo}}
             </p>
         </div>
-        <div ngbDropdown class="post-menu-dropdown" *ngIf="comment?.commenter?._id === authUserId">
+        <div ngbDropdown class="post-menu-dropdown" placement="bottom-right" *ngIf="comment?.commenter?._id === authUserId">
             <div id="dropdownBasic1" ngbDropdownToggle>
                 <div class="post-menu"></div>
             </div>

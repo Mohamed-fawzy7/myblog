@@ -1,6 +1,7 @@
 .posts-list{
     background-color: #F0F2F4;
     padding-top: 30px;
+    overflow-x: hidden; /*to remove the white space that drop down menu creates.*/
 }
 mat-spinner {
     margin: 100px auto;
@@ -13,7 +14,6 @@ mat-spinner {
 }
 
 .postContainer{
-    /* padding: 5px; */
     margin-top: 15px;
     margin-bottom: 15px;
     background-color: #FFF;

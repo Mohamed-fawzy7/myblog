@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const multer = require("multer");
 
+const minifyanduploadimage = require("../local_modules/minify-and-upload-image");
 const authCheck = require("../middleware/check-auth");
 const getUserInfo = require("../middleware/get-user-info");
 
@@ -26,13 +27,48 @@ const storage = multer.diskStorage({
     }
 })
 
+router.use((r, x, next) => {
+    console.log("posts routes reached");
+    next();
+})
+
+
+
+router.post("", authCheck, multer({ storage: storage }).single("imagePath"), async (req, res, next) => {
+    try {
+        let uploadedImageUrl;
+        if (req.file) {
+            uploadedImageUrl = await minifyanduploadimage(req.file.path);
+        }
+        const post = new Post({
+            title: req.body.title,
+            content: req.body.content,
+            imagePath: (req.file ? uploadedImageUrl : null),
+            creator: req.userData.userId,
+            creatorEmail: req.userData.email,
+            creatorUsername: req.userData.username,
+            date: new Date(),
+            comments: [],
+            likes: 0
+        });
+        post.save().then((response) => {
+            res.status(201).send({ message: "post Added Successfully", _id: response._id });
+        }).catch(() => {
+            res.status(401).json({ message: 'error occured while saving post' })
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'interenal server error' });
+    }
+})
+
+
 router.get("", getUserInfo, async (req, res) => {
     console.log("get posts reached")
     try {
         const pageSize = +req.query.pagesize;
         const currentPage = +req.query.currentpage < 1 ? 1 : +req.query.currentpage;
         const posts = await Post.find({}).populate('creator', '_id profileImagePath email username').skip(pageSize * (currentPage - 1)).limit(pageSize);
-        console.log(posts);
         const totalPostsCount = await Post.countDocuments();
 
         //if no logged in user, send posts
@@ -78,11 +114,6 @@ router.get("/:postId", getUserInfo, async (req, res) => {
     return res.send(post);
 })
 
-router.use((r, x, next) => {
-    console.log("posts routes reached");
-    next();
-})
-
 router.get("/topthreeposts/:userId", async (req, res) => {
     console.log("top three posts reached")
     const userId = req.params.userId;
@@ -99,41 +130,27 @@ router.get("/userposts/:userId", async (req, res) => {
     res.send(posts);
 })
 
-router.use((r, x, next) => {
-    console.log("posts routes reached 2");
-    next();
-})
-
-router.post("", authCheck, multer({ storage: storage }).single("imagePath"), (req, res, next) => {
-    const post = new Post({
-        title: req.body.title,
-        content: req.body.content,
-        imagePath: (req.file ? req.file.filename : null),
-        creator: req.userData.userId,
-        creatorEmail: req.userData.email,
-        creatorUsername: req.userData.username,
-        date: new Date(),
-        comments: [],
-        likes: 0
-    });
-    post.save().then((response) => {
-        res.status(201).send({ message: "post Added Successfully", _id: response._id });
-    })
-        .catch(() => {
-            res.status(401).json({ message: 'error occured at while saving post' })
-        })
-})
-
-router.put("/:postId", authCheck, multer({ storage: storage }).single("imagePath"), (req, res) => {
-    Post.updateOne({ _id: req.params.postId, creator: req.userData.userId }, {
-        $set: {
-            title: req.body.title,
-            content: req.body.content,
-            imagePath: (req.file ? req.file.filename : req.body.imagePath === "null" ? null : req.body.imagePath)
+router.put("/:postId", authCheck, multer({ storage: storage }).single("imagePath"), async (req, res) => {
+    try {
+        let uploadedImageUrl;
+        if (req.file) {
+            uploadedImageUrl = await minifyanduploadimage(req.file.path);
         }
-    }).then((post) => {
+        await Post.updateOne({
+            _id: req.params.postId,
+            creator: req.userData.userId
+        }, {
+            $set: {
+                title: req.body.title,
+                content: req.body.content,
+                imagePath: (req.file ? uploadedImageUrl : req.body.imagePath === "null" ? null : req.body.imagePath)
+            }
+        })
         res.status(200).send({ message: 'post updated successfuly' });
-    });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ message: 'internal server error' });
+    }
 })
 
 router.delete("/:postId", authCheck, (req, res) => {

@@ -1,17 +1,27 @@
-<h2>Login</h2>
-<p class="error" *ngIf="wrongEmailOrPassword">The email and password you entered did not match our records. Please double-check and try again.</p>
-<mat-card>
-    <form (submit)="onLogin(form)" #form="ngForm">
-        <mat-form-field>
-            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autocomplete="off" autofocus="true">
-            <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input name="password" type="password" placeholder="Password" matInput ngModel required #passwordInput="ngModel" autocomplete="off">
-            <mat-error *ngIf="passwordInput.invalid">Enter valid password.</mat-error>
-        </mat-form-field>
-        <div id="loginCont">
-            <button mat-raised-button color="accent">Login</button>
-        </div>
-    </form>
-</mat-card>
+<div class="container">
+    <h2>Login</h2>
+    <p class="error" *ngIf="wrongEmailOrPassword">.</p>
+    <div class="error text-center" *ngIf="wrongEmailOrPassword">
+        <ngb-alert dismissible="true" type="danger" (close)="wrongEmailOrPassword = false">The email and password you entered did
+            not match our records. Please double-check and try again.
+        </ngb-alert>
+    </div>
+    <mat-card>
+        <form (submit)="onLogin(form)" #form="ngForm">
+            <mat-form-field>
+                <input name="email" type="email" placeholder="Email" matInput ngModel email required
+                    #emailInput="ngModel" autocomplete="off" autofocus="true">
+                <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input name="password" type="password" placeholder="Password" matInput ngModel required
+                    #passwordInput="ngModel" autocomplete="off">
+                <mat-error *ngIf="passwordInput.invalid">Enter valid password.</mat-error>
+            </mat-form-field>
+            <div id="loginCont">
+                <button mat-raised-button color="accent">Login</button>
+            </div>
+        </form>
+    </mat-card>
+    <p class="forgot-password text-center" (click)="navigateTo(['/password_reset'])">Forgot password?</p>
+</div>

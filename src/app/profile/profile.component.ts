@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '../../environments/environment';
 
 import { PostsService } from '../posts/posts.service';
 import { UsersService } from './users.service';
 import { AuthService } from '../auth/auth-service.service';
+
+
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +14,6 @@ import { AuthService } from '../auth/auth-service.service';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    backendURL = environment.backendURL;
     authUserId;
     userPosts;
     selectedImage;
@@ -29,7 +29,8 @@ export class ProfileComponent implements OnInit {
         private usersService: UsersService,
         private authService: AuthService,
         private router: ActivatedRoute,
-        private modalService: NgbModal) { }
+        private modalService: NgbModal
+    ) { }
     ngOnInit() {
         this.router.paramMap.subscribe((paramMap) => {
             const userId = paramMap.get('userId');
@@ -81,6 +82,6 @@ export class ProfileComponent implements OnInit {
     }
 
     openEditProfileModal(modal) {
-        this.editProfileModal = this.modalService.open(modal);
+        this.editProfileModal = this.modalService.open(modal, {backdrop: false});
     }
 }

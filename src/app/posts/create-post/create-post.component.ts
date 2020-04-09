@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostsService } from './../posts.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { mimeType } from './mime-type.validator';
 import { environment } from './../../../environments/environment';
+import { AuthService } from 'src/app/auth/auth-service.service';
 @Component({
     selector: 'app-post-create',
     templateUrl: './create-post.component.html',
     styleUrls: ['./create-post.component.css']
 })
 export class PostCreateComponent implements OnInit {
-    private backendURL = environment.backendURL;
     mode = 'create';
     editedPostId = null;
     isLoading = false;
@@ -21,8 +21,14 @@ export class PostCreateComponent implements OnInit {
         imagePath: new FormControl(null, null, mimeType)
     });
 
-    constructor(private postsService: PostsService, private route: ActivatedRoute) { }
+    constructor(private postsService: PostsService,
+                private router: Router,
+                private route: ActivatedRoute,
+                private authService: AuthService) { }
     ngOnInit() {
+        if (this.authService.getIsEmailVerified() !== true) {
+            this.router.navigate(['account/unverified-email']);
+        }
         this.route.paramMap.subscribe((paramMap) => {
             this.editedPostId = paramMap.get('postId');
             if (this.editedPostId) {
@@ -32,7 +38,7 @@ export class PostCreateComponent implements OnInit {
                     console.log(post);
                     this.isLoading = false;
                     this.populateForm(post);
-                    this.imagePreview = post.imagePath ? this.backendURL + 'images/' + post.imagePath : null;
+                    this.imagePreview = post.imagePath ? post.imagePath : null;
                     console.log(this.imagePreview);
                 });
             } else {

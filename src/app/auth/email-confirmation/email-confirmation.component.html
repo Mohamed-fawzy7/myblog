@@ -1,0 +1,8 @@
+<div class="container text-center email-confirmation-container">
+    <h4 *ngIf="tokenExpired">This link has expired, please try again</h4>
+    <h4 *ngIf="serverError">Something went wrong please try again later</h4>
+    <div class="text-center" *ngIf="confirmationSuccess">
+        <h4>Email confirmed successfully</h4>
+        <button class="btn btn-primary" (click)="navigateTo(['/'])">Go to home page</button>
+    </div>
+</div>

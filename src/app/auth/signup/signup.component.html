@@ -1,32 +1,35 @@
-<h2>Sign up</h2>
-<p class="error" *ngIf="emailUsed">This email is used</p>
-<mat-card>
-    <form (submit)="onSignup(form)" #form="ngForm">
-        <mat-form-field>
-            <input name="username" type="text" placeholder="Name" matInput ngModel required #usernameInput="ngModel" autocomplete="off">
-            <mat-error>Enter valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input name="email" type="email" placeholder="Email" matInput ngModel email required #emailInput="ngModel" autocomplete="off">
-            <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input name="password" type="password" placeholder="Password" minlength="5" required matInput ngModel #passwordInput="ngModel" autocomplete="off">
-            <mat-error *ngIf="passwordInput.errors?.required">Password is required</mat-error>
-            <mat-error *ngIf="passwordInput.errors?.minlength">Minimum length is {{passwordInput.errors.minlength.requiredLength}}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input name="passwordConfirm" type="password" placeholder="Enter password again"
-            required appPasswordEqual matInput ngModel #passwordConfirmInput="ngModel">
-            <mat-error>Passwords don't match</mat-error>
-        </mat-form-field>
-        <div id="signupCont">
-            <button mat-raised-button color="accent">Sign up</button>
-        </div>
-    </form>
-</mat-card>
-<!-- form values: {{form.value | json}}<br>
-form touched: {{form.touched}}<br>
-form valid: {{form.valid}}<br>
-confirmpassword touched : {{passwordConfirmInput.touched}}
- -->
+<div class="container">
+    <h2>Sign up</h2>
+    <div class="error text-center" *ngIf="emailUsed">
+        <ngb-alert dismissible="true" type="danger" (close)="emailUsed = false">This email is used</ngb-alert>
+    </div>
+    <mat-card>
+        <form (submit)="onSignup(form)" #form="ngForm">
+            <mat-form-field>
+                <input name="username" type="text" placeholder="Name" matInput ngModel required #usernameInput="ngModel"
+                    autocomplete="off">
+                <mat-error>Enter valid email.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input name="email" type="email" placeholder="Email" matInput ngModel email required
+                    #emailInput="ngModel" autocomplete="off">
+                <mat-error *ngIf="emailInput.invalid">Enter valid email.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input name="password" type="password" placeholder="Password" minlength="5" required matInput ngModel
+                    #passwordInput="ngModel" autocomplete="off">
+                <mat-error *ngIf="passwordInput.errors?.required">Password is required</mat-error>
+                <mat-error *ngIf="passwordInput.errors?.minlength">Minimum length is
+                    {{passwordInput.errors.minlength.requiredLength}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input name="passwordConfirm" type="password" placeholder="Enter password again" required
+                    appPasswordEqual matInput ngModel #passwordConfirmInput="ngModel">
+                <mat-error>Passwords don't match</mat-error>
+            </mat-form-field>
+            <div id="signupCont">
+                <button mat-raised-button color="accent">Sign up</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

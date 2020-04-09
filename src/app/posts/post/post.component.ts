@@ -15,7 +15,6 @@ import { environment } from './../../../environments/environment';
     styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-    backendURL = environment.backendURL;
     post: any;
     authUserId;
     isPostLiked = false;

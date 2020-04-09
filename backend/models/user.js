@@ -6,8 +6,9 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     username: {type: String, required: true},
     postsLiked: {type: [{type: mongoose.Schema.Types.ObjectId}], ref: 'Post'},
-    profileImagePath: String,
-    bio: String
+    profileImagePath: {type: String},
+    bio: {type: String},
+    isEmailVerified: {type: Boolean, required: true}
 });
 userSchema.plugin(uniqueValidator);
 module.exports = mongoose.model("User", userSchema);

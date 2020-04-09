@@ -8,6 +8,10 @@ import { AuthGuard } from './auth/auth-guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PostComponent } from './posts/post/post.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
+import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
+import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
+import { ResetingPasswordComponent } from './auth/reseting-password/reseting-password.component';
 
 const routes: Routes = [
     {path: '', component: PostListComponent},
@@ -17,6 +21,10 @@ const routes: Routes = [
     {path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard]},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent},
+    {path: 'account/unverified-email', component: VerifyEmailComponent},
+    {path: 'account/email-confirmation/:token', component: EmailConfirmationComponent},
+    {path: 'password_reset/:token', component: ResetingPasswordComponent},
+    {path: 'password_reset', component: PasswordResetComponent},
     {path: '**', component: NotFoundComponent}
 ];
 

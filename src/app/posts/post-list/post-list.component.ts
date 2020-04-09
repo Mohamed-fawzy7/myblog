@@ -12,7 +12,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-    backendURL = environment.backendURL;
     posts = [];
     isLoading = false;
     totalPostsCount: number;

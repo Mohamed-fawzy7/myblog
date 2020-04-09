@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~cropperjs/dist/cropper.min.css';
+*{
+    word-break: break-word;
+}
 html, body { 
     height: 100%;
 }
@@ -8,13 +11,4 @@ body{
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     padding-top: 52px;
-}
-.greenborder{
-    border: 1px solid green
-}
-.redborder{
-    border: 1px solid red
-}
-.yellowborder{
-    border: 1px solid yellow;
 }

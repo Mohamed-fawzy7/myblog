@@ -4,7 +4,7 @@
             <div class="col-lg-3 row profile-details">
                 <div class="col-lg-12 col-7">
                     <div class="profile-image-container">
-                        <img [src]="backendURL + 'images/' + user.profileImagePath" class="profile-image"
+                        <img [src]="user.profileImagePath" class="profile-image"
                             alt="profile-image" *ngIf="user?.profileImagePath">
                         <div class="lettersImage" *ngIf="user && !user?.profileImagePath">
                             <p>
@@ -17,7 +17,7 @@
                     <p class="profile-name">
                         {{user?.username}}
                     </p>
-                    <p>
+                    <p class="profile-bio">
                         {{user?.bio}}
                     </p>
                     <button class="btn-block" mat-raised-button color="primary" *ngIf="user?._id === authUserId"
@@ -31,9 +31,11 @@
                         <app-mini-post [post]="post" [extendHeight]="true"></app-mini-post>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex flex-row justify-content-center">
                     <mat-spinner *ngIf="!userPosts"></mat-spinner>
-                    <h4 *ngIf="userPosts?.length === 0">This user didn't post yet.</h4>
+                    <h4 *ngIf="userPosts?.length === 0">
+                        {{user?._id === authUserId ? 'You' : 'This user'}} didn't post yet.
+                    </h4>
                 </div>
             </div>
         </div>
@@ -51,7 +53,7 @@
     <form #editform="ngForm" (submit)="handleEditFormSubmit(editform)">
         <div class="modal-body">
             <div class="modal-profile-image-container">
-                <img [src]="croppedImage || backendURL + 'images/' + user.profileImagePath" alt="profile-image"
+                <img [src]="croppedImage || user.profileImagePath" alt="profile-image"
                     *ngIf="user.profileImagePath || croppedImage">
                 <div class="lettersImage" *ngIf="!user.profileImagePath && !croppedImage">
                     <p *ngIf="!user.imagePath">
